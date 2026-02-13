@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /
+
+# Allow direct access to PHP files
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_URI} \.php$
+RewriteRule ^ - [L]
+
+# Normal Next.js static routing (if needed)
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^ index.html [L]
