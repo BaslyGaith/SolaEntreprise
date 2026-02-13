@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 // Configuration
-$to = "contact@entreprisesola.fr"; // Email de réception
+$to = "seif.e.akkari@gmail.com"; // Email de réception
 $from = "noreply@entreprisesola.fr"; // Email d'envoi (doit être valide sur le serveur)
 
 // Récupération des données

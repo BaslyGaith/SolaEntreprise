@@ -60,7 +60,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-600 uppercase">Email</span>
-                  <a href="mailto:contact@entreprisesola.fr" className="text-slate-300 transition-colors hover:text-white">contact@entreprisesola.fr</a>
+                  <a href="mailto:seif.e.akkari@gmail.com" className="text-slate-300 transition-colors hover:text-white">seif.e.akkari@gmail.com</a>
                 </div>
               </li>
               <li className="flex items-center gap-4 group">

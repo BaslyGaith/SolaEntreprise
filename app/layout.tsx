@@ -12,7 +12,7 @@ const _geistMono = Geist_Mono({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Entreprise SOLA | Expert Toiture & Façade à Rambouillet',
   description: 'Spécialiste en pose et rénovation de toiture, nettoyage et démoussage à Rambouillet. Expertise artisanale, garantie décennale, devis gratuits.',
-  generator: 'v0.app',
+  generator: 'app',
   viewport: {
     width: 'device-width',
     initialScale: 1,
