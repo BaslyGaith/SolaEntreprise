@@ -79,8 +79,16 @@ export default function Contact({ isModal = false }: ContactProps) {
         body: data,
       });
 
+      const contentType = response.headers.get("content-type");
+      let responseData;
+
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        responseData = await response.json();
+      } else {
+        responseData = { error: await response.text() };
+      }
+
       if (response.ok) {
-        const result = await response.json();
         alert('Votre demande de devis a bien été envoyée ! Nous vous recontacterons sous 24h.');
 
         // Reset form
@@ -93,13 +101,14 @@ export default function Contact({ isModal = false }: ContactProps) {
         });
         setImages([]);
       } else {
-        const errorData = await response.json();
-        console.error('Server error details:', errorData);
-        throw new Error(errorData.error || 'Erreur lors de l\'envoi');
+        console.error('Server error details:', responseData);
+        throw new Error(typeof responseData.error === 'string' && responseData.error.includes('<!DOCTYPE')
+          ? "Le serveur a renvoyé une page d'erreur (Vérifiez que send-email.php est bien au bon endroit)"
+          : (responseData.error || 'Erreur lors de l\'envoi'));
       }
     } catch (error: any) {
       console.error('Error submitting form:', error);
-      alert(`Une erreur s'est produite : ${error.message}. Veuillez nous contacter directement par téléphone.`);
+      alert(`Une erreur s'est produite : ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
