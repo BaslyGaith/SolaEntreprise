@@ -93,11 +93,13 @@ export default function Contact({ isModal = false }: ContactProps) {
         });
         setImages([]);
       } else {
-        throw new Error('Erreur lors de l\'envoi');
+        const errorData = await response.json();
+        console.error('Server error details:', errorData);
+        throw new Error(errorData.error || 'Erreur lors de l\'envoi');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
-      alert("Une erreur s'est produite lors de l'envoi. Veuillez nous contacter directement par téléphone.");
+      alert(`Une erreur s'est produite : ${error.message}. Veuillez nous contacter directement par téléphone.`);
     } finally {
       setIsSubmitting(false);
     }
