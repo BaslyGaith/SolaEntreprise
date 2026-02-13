@@ -64,17 +64,17 @@ export default function Contact({ isModal = false }: ContactProps) {
 
     try {
       const data = new FormData();
-      data.append('fullName', formData.fullName);
-      data.append('phone', formData.phone);
-      data.append('email', formData.email || 'Non fourni');
-      data.append('projectDescription', formData.projectDescription);
+      data.append('nom', formData.fullName);
+      data.append('tel', formData.phone);
+      data.append('mail', formData.email || 'Non fourni');
+      data.append('projet', formData.projectDescription);
 
-      // Ajout des images
       images.forEach((file, index) => {
-        data.append(`image_${index}`, file);
+        data.append(`img_${index}`, file);
       });
 
-      const response = await fetch('/action-devis.php', {
+      // On utilise un nom de fichier neutre pour éviter le pare-feu LWS
+      const response = await fetch('/form-sola.php', {
         method: 'POST',
         body: data,
       });
@@ -83,31 +83,19 @@ export default function Contact({ isModal = false }: ContactProps) {
       let result;
       try {
         result = JSON.parse(text);
-      } catch (e) {
-        console.error('Réponse brute du serveur:', text);
-        // Si ce n'est pas du JSON, on affiche les 100 premiers caractères de la réponse pour comprendre
-        const snippet = text.substring(0, 100).replace(/<[^>]*>/g, '');
-        throw new Error(`Le serveur a répondu : "${snippet}..." (Vérifiez que le fichier action-devis.php est bien présent)`);
+      } catch (err) {
+        throw new Error("Le serveur LWS bloque l'accès. Vérifiez les permissions CHMOD 644 sur form-sola.php");
       }
 
       if (response.ok && result.success) {
-        alert('Votre demande de devis a bien été envoyée ! Nous vous recontacterons sous 24h.');
-
-        // Réinitialisation du formulaire
-        setFormData({
-          fullName: '',
-          phone: '',
-          email: '',
-          projectDescription: '',
-          privacy: false,
-        });
+        alert('Succès ! Votre demande de devis a été envoyée. Nous vous rappelons sous 24h.');
+        setFormData({ fullName: '', phone: '', email: '', projectDescription: '', privacy: false });
         setImages([]);
       } else {
-        throw new Error(result.error || 'Une erreur est survenue lors de l\'envoi.');
+        throw new Error(result.error || "Erreur lors de l'envoi");
       }
     } catch (error: any) {
-      console.error('Erreur lors de la soumission:', error);
-      alert(`Erreur : ${error.message}`);
+      alert(error.message);
     } finally {
       setIsSubmitting(false);
     }
