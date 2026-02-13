@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Entreprise SOLA | Expert Toiture & Façade à Rambouillet',
   description: 'Spécialiste en pose et rénovation de toiture, nettoyage et démoussage à Rambouillet. Expertise artisanale, garantie décennale, devis gratuits.',
   icons: {
-    icon: '/icon.png',
+    icon: '/logo.jfif',
   },
 }
 
@@ -28,6 +28,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
   return (
     <html lang="fr" className="scroll-smooth">
       <body className="font-sans antialiased">

@@ -20,8 +20,7 @@ export default function Header() {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="relative">
-            <img src="/logo.jfif" alt="Entreprise SOLA Logo" className="h-14 w-auto object-contain transition-transform duration-300 hover:scale-105" />
-            <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-white shadow-sm" />
+            <img src="/logo.jfif" alt="Entreprise SOLA Logo" className="h-20 w-auto object-contain transition-transform duration-300 hover:scale-105" />
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-black text-primary leading-none uppercase tracking-tighter">SOLA</span>
