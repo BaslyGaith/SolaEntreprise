@@ -64,31 +64,30 @@ export default function Contact({ isModal = false }: ContactProps) {
 
     try {
       const data = new FormData();
-      data.append('fullName', formData.fullName);
-      data.append('phone', formData.phone);
-      data.append('email', formData.email);
-      data.append('projectDescription', formData.projectDescription);
+      // Web3Forms access key
+      data.append('access_key', '4f3a272c-7233-4039-ab40-eca5f1ab1fb6');
+      data.append('subject', `🏠 Nouveau Devis - ${formData.fullName}`);
+      data.append('from_name', 'Entreprise SOLA - Site Web');
 
-      // Append images with array notation for PHP
-      images.forEach((file) => {
-        data.append('images[]', file);
+      // Form fields
+      data.append('Nom Complet', formData.fullName);
+      data.append('Téléphone', formData.phone);
+      data.append('Email', formData.email || 'Non fourni');
+      data.append('Description du Projet', formData.projectDescription);
+
+      // Append images as attachments
+      images.forEach((file, index) => {
+        data.append(`attachment_${index}`, file);
       });
 
-      const response = await fetch('/send-email.php', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: data,
       });
 
-      const contentType = response.headers.get("content-type");
-      let responseData;
+      const result = await response.json();
 
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        responseData = await response.json();
-      } else {
-        responseData = { error: await response.text() };
-      }
-
-      if (response.ok) {
+      if (result.success) {
         alert('Votre demande de devis a bien été envoyée ! Nous vous recontacterons sous 24h.');
 
         // Reset form
@@ -101,10 +100,8 @@ export default function Contact({ isModal = false }: ContactProps) {
         });
         setImages([]);
       } else {
-        console.error('Server error details:', responseData);
-        throw new Error(typeof responseData.error === 'string' && responseData.error.includes('<!DOCTYPE')
-          ? "Le serveur a renvoyé une page d'erreur (Vérifiez que send-email.php est bien au bon endroit)"
-          : (responseData.error || 'Erreur lors de l\'envoi'));
+        console.error('Web3Forms error:', result);
+        throw new Error(result.message || 'Erreur lors de l\'envoi');
       }
     } catch (error: any) {
       console.error('Error submitting form:', error);
