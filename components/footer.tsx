@@ -16,15 +16,25 @@ export default function Footer() {
           {/* Logo & Info */}
           <div className="col-span-1 md:col-span-2 space-y-8">
             <div className="flex items-center gap-4">
-              <img src="/logo.jfif" alt="Logo" className="h-14 w-auto bg-white rounded-2xl p-2 shadow-2xl transition-transform hover:rotate-3" />
-              <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tighter text-white uppercase leading-none">SOLA</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Entreprise</span>
-              </div>
+              <img src="/logoG-removebg-preview.png" alt="Logo" className="h-14 w-auto bg-white rounded-2xl p-2 shadow-2xl transition-transform hover:rotate-3" />
             </div>
             <p className="max-w-sm text-lg font-bold leading-relaxed text-slate-500 italic">
               "Votre toiture est notre priorité. Une expertise artisanale au service de votre sérénité à {siteConfig.city}."
             </p>
+            <div className="flex items-center gap-6">
+              <div className="p-3 bg-white rounded-2xl shadow-xl transition-transform hover:scale-105 group relative overflow-hidden">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.entreprisesolacouverture.fr"
+                  alt="QR Code Entreprise SOLA"
+                  className="h-20 w-20"
+                />
+                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Scanner pour</span>
+                <span className="text-sm font-bold text-white uppercase">Infos & Devis</span>
+              </div>
+            </div>
             <div className="flex gap-4">
               {/* Social placeholders if needed */}
             </div>
@@ -51,7 +61,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-600 uppercase">Téléphone</span>
-                  <a href="tel:+33616501085" className="text-slate-300 transition-colors hover:text-white">06 16 50 10 85</a>
+                  <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="text-slate-300 transition-colors hover:text-white">{siteConfig.phone}</a>
                 </div>
               </li>
               <li className="flex items-center gap-4 group">
@@ -60,7 +70,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-600 uppercase">Email</span>
-                  <a href="mailto:bmohamedgaith@gmail.com" className="text-slate-300 transition-colors hover:text-white">bmohamedgaith@gmail.com</a>
+                  <a href={`mailto:${siteConfig.email}`} className="text-slate-300 transition-colors hover:text-white">{siteConfig.email}</a>
                 </div>
               </li>
               <li className="flex items-center gap-4 group">
@@ -80,9 +90,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start gap-2">
             <p>© {currentYear} {siteConfig.name}. Tous droits réservés.</p>
             <p className="text-[9px] text-slate-500">
-              Designed By <span className="text-white">BASAK</span> |
-              <a href="mailto:seif.e.akkari@gmail.com" className="hover:text-primary transition-colors ml-1">seif.e.akkari@gmail.com</a> &
-              <a href="mailto:mohamedgaithb@gmail.com" className="hover:text-primary transition-colors ml-1">mohamedgaithb@gmail.com</a>
+              Designed By <a href="https://www.linkedin.com/in/mohamed-gaith-basly/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">BASAK</a>
             </p>
           </div>
           <div className="mt-6 flex gap-8 md:mt-0">

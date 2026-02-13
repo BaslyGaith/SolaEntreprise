@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 // CONFIGURATION
-$apiKey = "re_Ps8xKKNb_PZfqi6ssSdnmo9UrDBE5odB5";
-$to = "bmohamedgaith@gmail.com";
+$apiKey = "API_Key_Waiting_for__zid hné key mta3 resend";
+$to = "entreprisesola76@gmail.com";
 $from = "onboarding@resend.dev"; // Email autorisé par Resend pour les tests
 
 // RÉCUPÉRATION DES DONNÉES

@@ -198,14 +198,14 @@ export default function Projects() {
                 {/* Before */}
                 <div className="relative aspect-[4/3] md:aspect-square group cursor-crosshair">
                   <img src={selectedProject.before} alt="Avant" className="h-full w-full object-cover" />
-                  <div className="absolute top-6 left-6 glass px-6 py-2 rounded-full">
+                  <div className="hidden md:block absolute top-6 left-6 glass px-6 py-2 rounded-full">
                     <span className="text-xs font-black uppercase tracking-widest text-white">Avant</span>
                   </div>
                 </div>
                 {/* After */}
                 <div className="relative aspect-[4/3] md:aspect-square group cursor-crosshair border-l border-white/20">
                   <img src={selectedProject.image} alt="Après" className="h-full w-full object-cover" />
-                  <div className="absolute top-6 right-6 bg-primary px-6 py-2 rounded-full shadow-lg">
+                  <div className="hidden md:block absolute top-6 right-6 bg-primary px-6 py-2 rounded-full shadow-lg">
                     <span className="text-xs font-black uppercase tracking-widest text-white">Après</span>
                   </div>
                 </div>

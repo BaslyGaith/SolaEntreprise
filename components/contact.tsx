@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Phone, Mail, MapPin, Clock, AlertCircle, Upload, Trash2, ImageIcon } from 'lucide-react';
+import { siteConfig } from '@/lib/site-config';
 
 
 interface ContactProps {
@@ -58,6 +59,8 @@ export default function Contact({ isModal = false }: ContactProps) {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -66,36 +69,64 @@ export default function Contact({ isModal = false }: ContactProps) {
       const data = new FormData();
       data.append('nom', formData.fullName);
       data.append('tel', formData.phone);
-      data.append('mail', formData.email || 'Non fourni');
+      data.append('mail', formData.email || '');
       data.append('projet', formData.projectDescription);
 
-      images.forEach((file, index) => {
-        data.append(`img_${index}`, file);
-      });
-
-      // On utilise un nom de fichier neutre pour éviter le pare-feu LWS
-      const response = await fetch('/form-sola.php', {
+      const response = await fetch('/contact.php', {
         method: 'POST',
         body: data,
       });
 
+      // Log pour debug
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
       const text = await response.text();
+      console.log('Response text:', text);
+
       let result;
       try {
         result = JSON.parse(text);
       } catch (err) {
-        throw new Error("Le serveur LWS bloque l'accès. Vérifiez les permissions CHMOD 644 sur form-sola.php");
+        console.error('JSON parse error:', err);
+        console.error('Server response:', text);
+
+        // Solution de secours : ouvrir le client email
+        const fallbackToEmail = confirm(
+          "Le formulaire rencontre un problème technique.\n\n" +
+          "Voulez-vous nous envoyer un email directement ?\n\n" +
+          "Cliquez OK pour ouvrir votre client email, ou Annuler pour nous appeler au 07 67 19 02 80."
+        );
+
+        if (fallbackToEmail) {
+          const subject = encodeURIComponent("Demande de devis - " + formData.fullName);
+          const body = encodeURIComponent(
+            `Bonjour,\n\n` +
+            `Je souhaite obtenir un devis.\n\n` +
+            `Nom: ${formData.fullName}\n` +
+            `Téléphone: ${formData.phone}\n` +
+            `Email: ${formData.email || 'Non fourni'}\n\n` +
+            `Description du projet:\n${formData.projectDescription}\n\n` +
+            `Cordialement`
+          );
+          window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+        }
+
+        throw new Error("Problème technique. Utilisez l'email ou appelez-nous au 07 67 19 02 80.");
       }
 
-      if (response.ok && result.success) {
-        alert('Succès ! Votre demande de devis a été envoyée. Nous vous rappelons sous 24h.');
+      if (result.success) {
+        alert(result.message || 'Votre demande a été envoyée avec succès !');
         setFormData({ fullName: '', phone: '', email: '', projectDescription: '', privacy: false });
         setImages([]);
       } else {
         throw new Error(result.error || "Erreur lors de l'envoi");
       }
     } catch (error: any) {
-      alert(error.message);
+      console.error('Form submission error:', error);
+      if (!error.message.includes('Problème technique')) {
+        alert(error.message || "Une erreur s'est produite. Veuillez nous contacter directement au 07 67 19 02 80.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -153,7 +184,7 @@ export default function Contact({ isModal = false }: ContactProps) {
                     onChange={handleChange}
                     required
                     className="w-full rounded-2xl border-2 border-slate-100 bg-slate-50 px-6 py-4 transition-all focus:border-primary focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary/5 font-bold text-slate-900 placeholder:text-slate-300"
-                    placeholder="06 12 34 56 78"
+                    placeholder="07 67 19 02 80"
                   />
                 </div>
 
@@ -271,23 +302,23 @@ export default function Contact({ isModal = false }: ContactProps) {
               </div>
 
               <div className="grid gap-8">
-                <a href="tel:+33616501085" className="group flex items-center gap-6 p-6 rounded-3xl bg-white transition-all hover:bg-primary hover:scale-105 shadow-xl shadow-slate-200/50">
+                <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="group flex items-center gap-6 p-6 rounded-3xl bg-white transition-all hover:bg-primary hover:scale-105 shadow-xl shadow-slate-200/50">
                   <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary transition-all group-hover:bg-white shadow-inner">
                     <Phone className="h-6 w-6" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white/60">Téléphone</span>
-                    <span className="text-xl font-black text-slate-900 group-hover:text-white">06 16 50 10 85</span>
+                    <span className="text-xl font-black text-slate-900 group-hover:text-white">{siteConfig.phone}</span>
                   </div>
                 </a>
 
-                <a href="mailto:bmohamedgaith@gmail.com" className="group flex items-center gap-6 p-6 rounded-3xl bg-white transition-all hover:bg-primary hover:scale-105 shadow-xl shadow-slate-200/50">
+                <a href={`mailto:${siteConfig.email}`} className="group flex items-center gap-6 p-6 rounded-3xl bg-white transition-all hover:bg-primary hover:scale-105 shadow-xl shadow-slate-200/50">
                   <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary transition-all group-hover:bg-white shadow-inner">
                     <Mail className="h-6 w-6" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white/60">Email</span>
-                    <span className="text-xl font-black text-slate-900 group-hover:text-white leading-none">bmohamedgaith@gmail.com</span>
+                    <span className="text-xl font-black text-slate-900 group-hover:text-white leading-none">{siteConfig.email}</span>
                   </div>
                 </a>
 
@@ -316,7 +347,7 @@ export default function Contact({ isModal = false }: ContactProps) {
                     Une fuite ou un sinistre ? Intervention rapide 24h/24 et 7j/7 pour sécuriser votre toiture.
                   </p>
                   <Button className="rounded-full bg-white text-primary font-black uppercase tracking-widest px-8 py-6 hover:bg-slate-50 transition-all hover:scale-105" asChild>
-                    <a href="tel:+33616501085">Péril immédiat</a>
+                    <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}>Péril immédiat</a>
                   </Button>
                 </div>
               </div>

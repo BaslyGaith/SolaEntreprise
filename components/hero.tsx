@@ -17,7 +17,6 @@ export default function Hero() {
           <div className="flex flex-col space-y-10">
             <div className="space-y-6">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                <span className="mr-2 flex h-2 w-2 animate-pulse rounded-full bg-primary" />
                 Artisan Couvreur de Confiance
               </div>
               <h1 className="text-balance text-5xl font-black leading-[1.1] text-slate-900 md:text-6xl lg:text-7xl">
@@ -46,8 +45,8 @@ export default function Hero() {
                 className="rounded-full px-10 py-7 text-lg font-bold border-slate-200 hover:bg-slate-50 transition-all"
                 asChild
               >
-                <a href="tel:+33616501085" className="flex items-center gap-2">
-                  <Phone className="h-5 w-5" /> 06 16 50 10 85
+                <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2">
+                  <Phone className="h-5 w-5" /> {siteConfig.phone}
                 </a>
               </Button>
             </div>

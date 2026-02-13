@@ -2,7 +2,7 @@
 header("Content-Type: application/json");
 
 // Destinataires
-$to = "bmohamedgaith@gmail.com";
+$to = "entreprisesola76@gmail.com";
 $from = "contact@entreprisesolacouverture.fr";
 
 // Données du POST

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Entreprise SOLA | Expert Toiture & Façade à Rambouillet',
   description: 'Spécialiste en pose et rénovation de toiture, nettoyage et démoussage à Rambouillet. Expertise artisanale, garantie décennale, devis gratuits.',
   icons: {
-    icon: '/logo.jfif',
+    icon: '/logoG-removebg-preview.png',
   },
 }
 

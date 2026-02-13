@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/lib/site-config';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,11 +21,7 @@ export default function Header() {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="relative">
-            <img src="/logo.jfif" alt="Entreprise SOLA Logo" className="h-20 w-auto object-contain transition-transform duration-300 hover:scale-105" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-black text-primary leading-none uppercase tracking-tighter">SOLA</span>
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Entreprise</span>
+            <img src="/logoG-removebg-preview.png" alt="Entreprise SOLA Logo" className="h-28 w-auto object-contain transition-transform duration-300 hover:scale-105" />
           </div>
         </div>
 
@@ -45,9 +42,9 @@ export default function Header() {
         {/* CTA Button */}
         <div className="hidden items-center gap-3 md:flex">
           <Button variant="outline" className="rounded-full border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-all" asChild>
-            <a href="tel:+33616501085" className="flex items-center gap-2">
+            <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2">
               <Phone className="h-4 w-4" />
-              <span>06 16 50 10 85</span>
+              <span>{siteConfig.phone}</span>
             </a>
           </Button>
           <Button className="rounded-full bg-primary font-bold text-white shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 px-6" asChild>
@@ -80,11 +77,11 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="tel:+33952332511"
+              href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
               className="mt-2 flex items-center gap-2 text-sm font-semibold"
             >
               <Phone className="h-4 w-4" />
-              <span>09 52 33 25 11</span>
+              <span>{siteConfig.phone}</span>
             </a>
           </nav>
         </div>
@@ -92,3 +89,4 @@ export default function Header() {
     </header>
   );
 }
+

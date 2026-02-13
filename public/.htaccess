@@ -1,4 +1,25 @@
+# Configuration pour LWS
+Options -Indexes
 RewriteEngine On
+
+# Activer PHP
+AddHandler application/x-httpd-php .php
+
+# Autoriser les requêtes CORS
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Configuration PHP
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 30
+</IfModule>
 
 # Ne pas toucher aux fichiers PHP
 RewriteCond %{REQUEST_FILENAME} -f
