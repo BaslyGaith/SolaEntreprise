@@ -84,8 +84,10 @@ export default function Contact({ isModal = false }: ContactProps) {
       try {
         result = JSON.parse(text);
       } catch (e) {
-        console.error('Réponse non-JSON du serveur:', text);
-        throw new Error('Le serveur a rencontré un problème technique.');
+        console.error('Réponse brute du serveur:', text);
+        // Si ce n'est pas du JSON, on affiche les 100 premiers caractères de la réponse pour comprendre
+        const snippet = text.substring(0, 100).replace(/<[^>]*>/g, '');
+        throw new Error(`Le serveur a répondu : "${snippet}..." (Vérifiez que le fichier action-devis.php est bien présent)`);
       }
 
       if (response.ok && result.success) {
