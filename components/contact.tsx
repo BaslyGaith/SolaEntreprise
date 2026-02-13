@@ -283,13 +283,13 @@ export default function Contact({ isModal = false }: ContactProps) {
                   </div>
                 </a>
 
-                <a href="mailto:seif.e.akkari@gmail.com" className="group flex items-center gap-6 p-6 rounded-3xl bg-white transition-all hover:bg-primary hover:scale-105 shadow-xl shadow-slate-200/50">
+                <a href="mailto:bmohamedgaith@gmail.com" className="group flex items-center gap-6 p-6 rounded-3xl bg-white transition-all hover:bg-primary hover:scale-105 shadow-xl shadow-slate-200/50">
                   <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary transition-all group-hover:bg-white shadow-inner">
                     <Mail className="h-6 w-6" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white/60">Email</span>
-                    <span className="text-xl font-black text-slate-900 group-hover:text-white leading-none">seif.e.akkari@gmail.com</span>
+                    <span className="text-xl font-black text-slate-900 group-hover:text-white leading-none">bmohamedgaith@gmail.com</span>
                   </div>
                 </a>
 

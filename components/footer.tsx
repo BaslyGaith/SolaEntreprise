@@ -60,7 +60,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-600 uppercase">Email</span>
-                  <a href="mailto:seif.e.akkari@gmail.com" className="text-slate-300 transition-colors hover:text-white">seif.e.akkari@gmail.com</a>
+                  <a href="mailto:bmohamedgaith@gmail.com" className="text-slate-300 transition-colors hover:text-white">bmohamedgaith@gmail.com</a>
                 </div>
               </li>
               <li className="flex items-center gap-4 group">
@@ -77,7 +77,14 @@ export default function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-center justify-between border-t border-white/5 pt-10 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 md:flex-row">
-          <p>© {currentYear} {siteConfig.name}. Tous droits réservés. Designé par <a href="https://github.com/BaslyGaith" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Basly Gaith</a></p>
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <p>© {currentYear} {siteConfig.name}. Tous droits réservés.</p>
+            <p className="text-[9px] text-slate-500">
+              Designed By <span className="text-white">BASAK</span> |
+              <a href="mailto:seif.e.akkari@gmail.com" className="hover:text-primary transition-colors ml-1">seif.e.akkari@gmail.com</a> &
+              <a href="mailto:mohamedgaithb@gmail.com" className="hover:text-primary transition-colors ml-1">mohamedgaithb@gmail.com</a>
+            </p>
+          </div>
           <div className="mt-6 flex gap-8 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
             <a href="#" className="hover:text-white transition-colors">Confidentialité</a>
