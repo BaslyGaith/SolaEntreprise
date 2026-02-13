@@ -64,33 +64,34 @@ export default function Contact({ isModal = false }: ContactProps) {
 
     try {
       const data = new FormData();
-      // Web3Forms access key
-      data.append('access_key', '4f3a272c-7233-4039-ab40-eca5f1ab1fb6');
-      data.append('subject', `🏠 Nouveau Devis - ${formData.fullName}`);
-      data.append('from_name', 'Entreprise SOLA - Site Web');
+      data.append('fullName', formData.fullName);
+      data.append('phone', formData.phone);
+      data.append('email', formData.email || 'Non fourni');
+      data.append('projectDescription', formData.projectDescription);
 
-      // Form fields
-      data.append('Nom Complet', formData.fullName);
-      data.append('Téléphone', formData.phone);
-      data.append('Email', formData.email || 'Non fourni');
-      data.append('Description du Projet', formData.projectDescription);
-
-      // Append images as attachments
+      // Ajout des images
       images.forEach((file, index) => {
-        data.append(`attachment_${index}`, file);
+        data.append(`image_${index}`, file);
       });
 
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/action-devis.php', {
         method: 'POST',
         body: data,
       });
 
-      const result = await response.json();
+      const text = await response.text();
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (e) {
+        console.error('Réponse non-JSON du serveur:', text);
+        throw new Error('Le serveur a rencontré un problème technique.');
+      }
 
-      if (result.success) {
+      if (response.ok && result.success) {
         alert('Votre demande de devis a bien été envoyée ! Nous vous recontacterons sous 24h.');
 
-        // Reset form
+        // Réinitialisation du formulaire
         setFormData({
           fullName: '',
           phone: '',
@@ -100,12 +101,11 @@ export default function Contact({ isModal = false }: ContactProps) {
         });
         setImages([]);
       } else {
-        console.error('Web3Forms error:', result);
-        throw new Error(result.message || 'Erreur lors de l\'envoi');
+        throw new Error(result.error || 'Une erreur est survenue lors de l\'envoi.');
       }
     } catch (error: any) {
-      console.error('Error submitting form:', error);
-      alert(`Une erreur s'est produite : ${error.message}`);
+      console.error('Erreur lors de la soumission:', error);
+      alert(`Erreur : ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
