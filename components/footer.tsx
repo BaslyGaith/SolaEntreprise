@@ -77,7 +77,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-center justify-between border-t border-white/5 pt-10 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 md:flex-row">
-          <p>© {currentYear} {siteConfig.name}. Tous droits réservés.</p>
+          <p>© {currentYear} {siteConfig.name}. Tous droits réservés. Designé par <a href="https://github.com/BaslyGaith" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Basly Gaith</a></p>
           <div className="mt-6 flex gap-8 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
             <a href="#" className="hover:text-white transition-colors">Confidentialité</a>
